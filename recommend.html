@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Crop Production Predictor</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: #e8f5e9;
+    text-align:center;
+}
+
+.container{
+    width:400px;
+    margin:auto;
+    margin-top:50px;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+}
+
+h1{
+    color:green;
+}
+
+input, select{
+    width:90%;
+    padding:8px;
+    margin:8px;
+}
+
+button{
+    background:green;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    font-size:16px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button:hover{
+    background:darkgreen;
+}
+
+.result{
+    margin-top:20px;
+    font-weight:bold;
+    color:#2e7d32;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>?? Crop Production Predictor</h1>
+
+<label>Soil Type</label>
+<select id="soil">
+<option value="loamy">Loamy</option>
+<option value="sandy">Sandy</option>
+<option value="clay">Clay</option>
+<option value="Black"> soil</option>
+
+<label>Rainfall (mm)</label>
+<input type="number" id="rainfall" placeholder="Enter rainfall">
+
+<label>Temperature (°C)</label>
+<input type="number" id="temp" placeholder="Enter temperature">
+
+<label>Land Area (hectares)</label>
+<input type="number" id="area" placeholder="Enter land area">
+
+<br><br>
+
+<button onclick="predictCrop()">Predict Production</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function predictCrop(){
+
+let soil = document.getElementById("soil").value;
+let rainfall = document.getElementById("rainfall").value;
+let temp = document.getElementById("temp").value;
+let area = document.getElementById("area").value;
+
+let crop="";
+let production=0;
+let localDemand="";
+let globalDemand="";
+
+if(soil=="loamy" && rainfall>800 && temp>20){
+    crop="Rice";
+    production = area * 4;
+    localDemand = "High";
+    globalDemand = "Very High";
+}
+
+else if(soil=="sandy" && rainfall<600){
+    crop="Millet";
+    production = area * 2;
+    localDemand = "Medium";
+    globalDemand = "Growing";
+}
+
+else if(soil=="clay"){
+    crop="Wheat";
+    production = area * 3;
+    localDemand = "High";
+    globalDemand = "High";
+}
+else if(soil=="Black"&& rainfall>600 && temp>20){
+	crop = "Cotton";
+	production = area*2.8;
+	localDemand = "High";
+	globalDemand = "Very High";
+}
+
+else{
+    crop="Maize";
+    production = area * 2.5;
+    localDemand = "Medium";
+    globalDemand = "High";
+}
+
+document.getElementById("result").innerHTML =
+"Recommended Crop: " + crop +
+"<br>Estimated Production: " + production + " tons" +
+"<br>Local Demand: " + localDemand +
+"<br>Global Demand: " + globalDemand;
+
+}
+
+</script>
+
+</body>
+</html>
